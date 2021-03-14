@@ -1,7 +1,7 @@
 #ifndef GAME_OF_LIFE_H_
 #define GAME_OF_LIFE_H_
 
-#include <unordered_map>
+#include <string>
 #include <unordered_set>
 #include <utility>
 
@@ -27,6 +27,8 @@ public:
 
     // Prints the current population
     void print_population();
+
+    void write_vtk(std::string file_name);
 
 private:
     population_t population_;

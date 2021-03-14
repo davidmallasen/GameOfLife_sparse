@@ -17,3 +17,6 @@ mkdir build && cd build && cmake .. && make
 ./bin/tests.out
 ./bin/main.out
 ~~~
+
+When running `main.out` you will also generate the VTK representation of each step. You can visualize this data for example using Paraview.
+To create an animation from the .png files that can be generated using Paraview run `convert -delay 10 -loop 0 *.png animation.gif`.
