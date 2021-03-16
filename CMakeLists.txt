@@ -18,7 +18,12 @@ add_executable(tests.out
     src/game_of_life.cpp
 )
 
-set_target_properties(main.out tests.out
+add_executable(perf.out
+    src/perf_test.cpp
+    src/game_of_life.cpp
+)
+
+set_target_properties(main.out tests.out perf.out
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "lib/"
     LIBRARY_OUTPUT_DIRECTORY "lib/"
@@ -30,15 +35,20 @@ find_package(GTest REQUIRED)
 # Define header file path
 target_include_directories(main.out PRIVATE include)
 target_include_directories(tests.out PRIVATE include ${GTEST_INCLUDE_DIRS})
+target_include_directories(perf.out PRIVATE include)
 
 target_link_libraries(tests.out ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(perf.out profiler)
+target_link_options(perf.out PRIVATE -ggdb -Wl,-no-as-needed)
 
 # Set to use C++20 features
 target_compile_features(main.out PRIVATE cxx_std_20)
 target_compile_features(tests.out PRIVATE cxx_std_20)
+target_compile_features(perf.out PRIVATE cxx_std_20)
 
 target_compile_options(main.out PRIVATE -Wall -O3)
 target_compile_options(tests.out PRIVATE -Wall -O3)
+target_compile_options(perf.out PRIVATE -Wall -O3 -ggdb)
 
 # specify what to install when we run 'make install'
 install(TARGETS main.out DESTINATION bin) 
