@@ -56,3 +56,16 @@ If you want to sort by cumulative time instead of the flat value, add the `-cum`
 ### Detecting memory leaks
 
 To check that there are no memory leaks change the number of steps in `src/perf_test.cpp` to something smaller like 200, recompile and run `HEAPCHECK=normal ./bin/perf.out`.
+
+### Analyzing cache usage
+
+First you will need to install the Linux perf tools (`sudo apt install linux-tools-$(uname -r) linux-tools-generic`). You will also have to either run the commands with superuser mode (`sudo`) or enable counter values collection without root permission: `sudo sh -c 'echo 1 >/proc/sys/kernel/perf_event_paranoid'`.
+
+To obtain stats on the instructions and the caches run:
+~~~
+perf stat -e cycles,instructions,cache-references,cache-misses,L1-dcache-loads,L1-dcache-load-misses,L1-dcache-stores,L1-icache-load-misses,LLC-loads,LLC-load-misses,LLC-stores -B ./bin/perf.out
+~~~
+
+The list of all pre-defined events to be used with -e can be seen with `perf list`.
+
+*Note:* Linux perf tools may not give all values if used in a virtual machine.
