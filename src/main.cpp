@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <string>
 
 #include "game_of_life.h"
@@ -15,6 +16,9 @@ int main() {
 
     gol.set_population(initial_population);
 
+    printf("Initial population:\n");
+    gol.print_population();
+
     gol.write_vtk("gol_0.vtk");
     
     for (int i = 1; i <= 100; ++i) {
@@ -22,6 +26,9 @@ int main() {
         std::string file_name = "gol_" + std::to_string(i) + ".vtk";
         gol.write_vtk(file_name);
     }
+    
+    printf("Final population:\n");
+    gol.print_population();
 
     return 0;
 }
