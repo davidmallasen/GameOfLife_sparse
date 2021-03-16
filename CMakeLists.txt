@@ -38,7 +38,7 @@ target_include_directories(tests.out PRIVATE include ${GTEST_INCLUDE_DIRS})
 target_include_directories(perf.out PRIVATE include)
 
 target_link_libraries(tests.out ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
-target_link_libraries(perf.out profiler)
+target_link_libraries(perf.out profiler tcmalloc)
 target_link_options(perf.out PRIVATE -ggdb -Wl,-no-as-needed)
 
 # Set to use C++20 features

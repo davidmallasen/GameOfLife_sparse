@@ -53,3 +53,6 @@ google-pprof --text ./bin/perf.out line20000.prof
 ~~~
 If you want to sort by cumulative time instead of the flat value, add the `-cum` option to the `google-pprof` command.
 
+### Detecting memory leaks
+
+To check that there are no memory leaks change the number of steps in `src/perf_test.cpp` to something smaller like 200, recompile and run `HEAPCHECK=normal ./bin/perf.out`.
