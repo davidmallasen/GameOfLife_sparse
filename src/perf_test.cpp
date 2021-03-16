@@ -70,7 +70,7 @@ int main() {
 
     gol.set_population(line);
 #if VTK
-    gol.write_vtk("gol_0.vtk");
+    gol.write_vtk("gol_0.vtk", 500, 500, cell_t(-100, -250));
 #endif
 
 #if TIMING
@@ -81,7 +81,7 @@ int main() {
         gol.step();
 #if VTK
         std::string file_name = "gol_" + std::to_string(i) + ".vtk";
-        gol.write_vtk(file_name);
+        gol.write_vtk(file_name, 500, 500, cell_t(-100, -250));
 #endif
     }
 

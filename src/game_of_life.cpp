@@ -56,7 +56,7 @@ void GameOfLife::print_population() {
     printf("\n");
 }
 
-void GameOfLife::write_vtk(std::string file_name) {
+void GameOfLife::write_vtk(std::string file_name, int width, int height, cell_t bottom_left) {
     std::ofstream vtk_file;
 
     vtk_file.open(file_name);
@@ -68,15 +68,15 @@ void GameOfLife::write_vtk(std::string file_name) {
         vtk_file << "Game of Life - Population" << std::endl;
         vtk_file << "BINARY" << std::endl;
         vtk_file << "DATASET STRUCTURED_POINTS" << std::endl;
-        vtk_file << "DIMENSIONS 100 100 1" << std::endl;
-        vtk_file << "ORIGIN -50 -50 0" << std::endl;
+        vtk_file << "DIMENSIONS " << width << " " << height << " 1" << std::endl;
+        vtk_file << "ORIGIN " << bottom_left.first << " " << bottom_left.second << " 0" << std::endl;
         vtk_file << "SPACING 1 1 1" << std::endl;
-        vtk_file << "POINT_DATA 10000" << std::endl;
+        vtk_file << "POINT_DATA " << width * height << std::endl;
         vtk_file << "SCALARS cell unsigned_char" << std::endl;
         vtk_file << "LOOKUP_TABLE default" << std::endl;
 
-        for (int j = -50; j < 50; ++j) {
-            for (int i = -50; i < 50; ++i) {
+        for (int j = bottom_left.second; j < bottom_left.second + height; ++j) {
+            for (int i = bottom_left.first; i < bottom_left.first + width; ++i) {
                 char live = (char) population_.count(cell_t(i, j));
                 vtk_file.write((char*) &live, 1);
             }

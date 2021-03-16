@@ -19,12 +19,12 @@ int main() {
     printf("Initial population:\n");
     gol.print_population();
 
-    gol.write_vtk("gol_0.vtk");
+    gol.write_vtk("gol_0.vtk", 100, 100, cell_t(-50, -50));
     
     for (int i = 1; i <= 100; ++i) {
         gol.step();
         std::string file_name = "gol_" + std::to_string(i) + ".vtk";
-        gol.write_vtk(file_name);
+        gol.write_vtk(file_name, 100, 100, cell_t(-50, -50));
     }
     
     printf("Final population:\n");

@@ -27,8 +27,13 @@ public:
 
     // Prints the current population
     void print_population();
-
-    void write_vtk(std::string file_name);
+    
+    // Writes the current population as VTK format to the file given by file_name
+    // Width and height represent the area of the population and bottom_left represents
+    // where the bottom left corner of the representation should be.
+    // For example: width == height == 100, bottom_left = (-50, -50) would represent the 
+    // square given by the corners (-50, -50) and (49, 49).
+    void write_vtk(std::string file_name, int width, int height, cell_t bottom_left);
 
 private:
     population_t population_;
