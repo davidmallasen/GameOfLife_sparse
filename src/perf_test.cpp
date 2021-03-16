@@ -1,8 +1,25 @@
-#include <string>
-
 #include "game_of_life.h"
 
+#define TIMING 0
+#define VTK 0
+
+#if TIMING
+#include <ctime>
+#include <cstdlib>
+
+double sec(struct timespec *ts) {
+    return ts->tv_sec + 1e-9 * ts->tv_nsec;
+}
+#endif
+
+#if VTK
+#include <string>
+#endif
+
 int main() {
+#if TIMING
+    struct timespec t0, t1;
+#endif
     GameOfLife gol;
     
     // Acorn -> https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns
@@ -52,18 +69,26 @@ int main() {
     };
 
     gol.set_population(line);
+#if VTK
+    gol.write_vtk("gol_0.vtk");
+#endif
 
-    //gol.write_vtk("gol_0.vtk");
-    
+#if TIMING
+    clock_gettime(CLOCK_MONOTONIC, &t0);
+#endif
+
     for (int i = 1; i <= 20000; ++i) {
         gol.step();
-        //std::string file_name = "gol_" + std::to_string(i) + ".vtk";
-        //gol.write_vtk(file_name);
+#if VTK
+        std::string file_name = "gol_" + std::to_string(i) + ".vtk";
+        gol.write_vtk(file_name);
+#endif
     }
 
-    //gol.write_vtk("line_20000.vtk");
-
-    //gol.print_population();
+#if TIMING
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    printf("Execution time: %f s\n", sec(&t1)-sec(&t0));
+#endif
 
     return 0;
 }
