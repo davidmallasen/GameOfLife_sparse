@@ -41,10 +41,10 @@ target_link_libraries(tests.out ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthre
 target_link_libraries(perf.out profiler tcmalloc)
 target_link_options(perf.out PRIVATE -ggdb -Wl,-no-as-needed)
 
-# Set to use C++20 features
-target_compile_features(main.out PRIVATE cxx_std_20)
-target_compile_features(tests.out PRIVATE cxx_std_20)
-target_compile_features(perf.out PRIVATE cxx_std_20)
+# Set to use C++17 features
+target_compile_features(main.out PRIVATE cxx_std_17)
+target_compile_features(tests.out PRIVATE cxx_std_17)
+target_compile_features(perf.out PRIVATE cxx_std_17)
 
 target_compile_options(main.out PRIVATE -Wall -O3)
 target_compile_options(tests.out PRIVATE -Wall -O3)
