@@ -38,11 +38,16 @@ To run the tests execute `./bin/tests.out` in the `build` directory. The four un
 
 ## Performance analysis
 
-To activate the VTK visualization of the performance test declare `#define VTK 1` in `src/perf_test.cpp`.
+To activate the VTK visualization of the performance test declare `#define VTK 1` in `src/perf_test.cpp` (not recommended when actually analyzing the performance).
 
 ### Execution time
 
 To measure the execution time of the performance test, declare `#define TIMING 1` in `src/perf_test.cpp`.
+
+Then, run:
+~~~
+./bin/perf.out
+~~~
 
 ### Hotspot profiling
 
