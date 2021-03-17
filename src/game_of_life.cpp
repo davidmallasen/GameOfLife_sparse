@@ -3,7 +3,8 @@
 #include <cstdio>
 #include <fstream>
 #include <iostream>
-#include <unordered_map>
+
+#include <boost/unordered_map.hpp>
 
 GameOfLife::GameOfLife() {
     //
@@ -11,7 +12,7 @@ GameOfLife::GameOfLife() {
 
 void GameOfLife::step() {
     population_t prev_population;
-    std::unordered_map<cell_t, int, boost::hash<cell_t>> density;
+    boost::unordered_map<cell_t, int> density;
 
     prev_population.swap(population_);
 
@@ -35,7 +36,7 @@ void GameOfLife::step() {
 
     // Create the new populatin
     for (const auto& [cell, cnt] : density) {
-        if (cnt == 3 || (cnt == 4 && prev_population.contains(cell))) {
+        if (cnt == 3 || (cnt == 4 && prev_population.count(cell))) {
             population_.emplace(cell);
         }
     }

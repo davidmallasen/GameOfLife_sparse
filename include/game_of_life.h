@@ -2,13 +2,13 @@
 #define GAME_OF_LIFE_H_
 
 #include <string>
-#include <unordered_set>
 #include <utility>
 
 #include <boost/functional/hash.hpp>
+#include <boost/unordered_set.hpp>
 
 using cell_t = std::pair<int, int>;
-using population_t = std::unordered_set<cell_t, boost::hash<cell_t>>;
+using population_t = boost::unordered_set<cell_t>;
 
 // Main class of the Game of Life
 class GameOfLife {
